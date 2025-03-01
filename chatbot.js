@@ -2,10 +2,25 @@ const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
 const client = new Client({
-    authStrategy: new LocalAuth() // Salva a sessão localmente
+    authStrategy: new LocalAuth(),
+    puppeteer: {
+        executablePath: '/usr/bin/google-chrome-stable', // Tenta usar o Chrome do Railway
+        args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-accelerated-2d-canvas",
+            "--no-first-run",
+            "--no-zygote",
+            "--single-process",
+            "--disable-gpu"
+        ],
+        headless: true
+    }
 });
 
 client.on('qr', qr => {
+    console.log("Escaneie o QR Code abaixo:");
     qrcode.generate(qr, { small: true });
 });
 
@@ -13,7 +28,14 @@ client.on('ready', () => {
     console.log('Tudo certo! WhatsApp conectado.');
 });
 
+client.on('disconnected', (reason) => {
+    console.log('Desconectado:', reason);
+    client.destroy();
+    client.initialize(); // Reinicializa automaticamente
+});
+
 client.initialize();
+
 
 
 const delay = ms => new Promise(res => setTimeout(res, ms)); // Função que usamos para criar o delay entre uma ação e outra
