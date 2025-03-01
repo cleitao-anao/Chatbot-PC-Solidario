@@ -1,10 +1,14 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
+const qrcode = require('qrcode');
+const express = require('express');
+const app = express();
+const port = 3000;
+
+let qrCodeData = null; // Armazena o QR Code temporariamente
 
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-        executablePath: '/usr/bin/google-chrome-stable', // Tenta usar o Chrome do Railway
         args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
@@ -19,22 +23,56 @@ const client = new Client({
     }
 });
 
-client.on('qr', qr => {
-    console.log("Escaneie o QR Code abaixo:");
-    qrcode.generate(qr, { small: true });
+client.on('qr', async (qr) => {
+    console.log("Novo QR Code gerado!");
+    qrCodeData = await qrcode.toDataURL(qr); // Converte para uma imagem base64
 });
 
 client.on('ready', () => {
     console.log('Tudo certo! WhatsApp conectado.');
-});
-
-client.on('disconnected', (reason) => {
-    console.log('Desconectado:', reason);
-    client.destroy();
-    client.initialize(); // Reinicializa automaticamente
+    qrCodeData = null; // Remove o QR Code depois da conexão
 });
 
 client.initialize();
+
+// Servir a página HTML
+app.get('/', (req, res) => {
+    res.send(`
+        <html>
+            <head>
+                <title>QR Code do WhatsApp</title>
+                <script>
+                    function atualizarQRCode() {
+                        fetch('/qrcode')
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.qr) {
+                                    document.getElementById('qrcode').src = data.qr;
+                                }
+                            });
+                    }
+                    setInterval(atualizarQRCode, 5000);
+                    atualizarQRCode();
+                </script>
+            </head>
+            <body>
+                <h1>Escaneie o QR Code para conectar</h1>
+                <img id="qrcode" src="" />
+            </body>
+        </html>
+    `);
+});
+
+// Rota para fornecer o QR Code em tempo real
+app.get('/qrcode', (req, res) => {
+    res.json({ qr: qrCodeData });
+});
+
+// Inicia o servidor
+app.listen(port, () => {
+    console.log(`Servidor rodando em http://localhost:${port}`);
+});
+
 
 
 
