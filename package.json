@@ -1,4 +1,7 @@
 {
+  "scripts": {
+  "start": "node bot.js"
+},
   "dependencies": {
     "moment-timezone": "^0.5.45",
     "qrcode-terminal": "^0.12.0",
