@@ -93,17 +93,7 @@ client.on('message', async msg => {
 
         await client.sendMessage(
             msg.from,
-            `Você sabia que muitos dispositivos eletrônicos que descartamos ainda podem ter uma nova vida? Na *PCTI PC Solidário*, estamos comprometidos em fazer a diferença!
-        
-            Nosso projeto é simples, mas poderoso: coletamos lixo eletrônico, reciclamos e transformamos em novos computadores. Cada equipamento que recuperamos é uma oportunidade de levar tecnologia a quem mais precisa.
-        
-            Acreditamos que todos merecem acesso à informação e educação. Por isso, fazemos esses computadores para comunidades carentes, ajudando a abrir portas para um futuro melhor.
-        
-            Se você tem eletrônicos parados em casa, não jogue fora! Traga para a *PCTI PC Solidário* e faça parte dessa corrente do bem. Juntos, podemos transformar lixo em oportunidades e construir um mundo mais justo e sustentável.
-        
-            *PCTI PC Solidário* - Reciclando com propósito, doando com amor!  
-        
-            Para saber mais sobre como você pode ajudar, visite nosso site ou entre em contato conosco!`
+            `colocar algo`
         );
         
         
@@ -119,9 +109,9 @@ client.on('message', async msg => {
     // Opção 1 - Descarte Externo
     if (msg.body !== null && msg.body === '1' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-        await delay(3000);
+        await delay(1000);
         await chat.sendStateTyping();
-        await delay(3000);
+        await delay(1000);
         await client.sendMessage(
             msg.from,
             `Você selecionou *Descarte Externo*.`
@@ -131,9 +121,9 @@ client.on('message', async msg => {
     // Opção 2 - Descarte Interno
     if (msg.body !== null && msg.body === '2' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-        await delay(3000);
+        await delay(1000);
         await chat.sendStateTyping();
-        await delay(3000);
+        await delay(1000);
         await client.sendMessage(
             msg.from,
             `Você selecionou *Descarte Interno*.`
@@ -143,9 +133,9 @@ client.on('message', async msg => {
     // Opção 3 - Ajuda
     if (msg.body !== null && msg.body === '3' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-        await delay(3000);
+        await delay(1000);
         await chat.sendStateTyping();
-        await delay(3000);
+        await delay(1000);
         await client.sendMessage(
             msg.from,
             `Você selecionou *Ajuda*.\n\nSe precisar de esclarecimentos adicionais ou tiver dúvidas sobre o processo de descarte, por favor, responda com sua pergunta ou entre em contato com nossa equipe pelo telefone (XX) XXXX-XXXX. Estamos aqui para ajudar!`
