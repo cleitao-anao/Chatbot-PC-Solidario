@@ -1,4 +1,4 @@
-const { Client, LocalAuth, Buttons } = require('whatsapp-web.js');
+const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode');
 const express = require('express');
 const app = express();
@@ -75,9 +75,9 @@ app.listen(port, () => {
 
 const delay = ms => new Promise(res => setTimeout(res, ms)); // Função para criar delay entre ações
 
-// Funil de atendimento para o projeto solidário de descarte de eletrônico com botões
+// Funil de atendimento para o projeto solidário de descarte de eletrônico
 client.on('message', async msg => {
-    // Ao receber uma saudação ou pedido de menu, envia a mensagem com botões
+    // Verifica se a mensagem contém cumprimentos ou solicita o menu
     if (msg.body.match(/(menu|Menu|dia|tarde|noite|oi|Oi|Olá|olá|ola|Ola)/i) && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
         await delay(3000);
@@ -85,54 +85,49 @@ client.on('message', async msg => {
         await delay(3000);
         const contact = await msg.getContact();
         const name = contact.pushname;
-        // Cria os botões interativos
-        const buttons = new Buttons(
-            `Olá, ${name.split(" ")[0]}! Bem-vindo ao Projeto Solidário de Descarte de Eletrônicos. Por favor, escolha uma das opções abaixo:`,
-            [
-                { body: 'Descarte Externo' },
-                { body: 'Descarte Interno' },
-                { body: 'Ajuda' }
-            ],
-            'Menu Principal',
-            'Selecione uma opção'
+        // Mensagem de saudação adaptada para o projeto solidário
+        await client.sendMessage(
+            msg.from,
+            `Olá, ${name.split(" ")[0]}! Bem-vindo ao Projeto Solidário de Descarte de Eletrônicos.\nPor favor, escolha uma das opções abaixo:\n\n1 - Descarte Externo\n2 - Descarte Interno\n3 - Ajuda`
         );
-        await client.sendMessage(msg.from, buttons);
         await delay(3000);
         await chat.sendStateTyping();
         await delay(5000);
     }
 
-    // Processa a resposta dos botões (baseada no texto do botão)
-    if (msg.body !== null && msg.from.endsWith('@c.us')) {
-        if (msg.body === 'Descarte Externo') {
-            const chat = await msg.getChat();
-            await delay(3000);
-            await chat.sendStateTyping();
-            await delay(3000);
-            await client.sendMessage(
-                msg.from,
-                `Você selecionou *Descarte Externo*.\n\nSe você possui equipamentos eletrônicos para descarte em locais externos, por favor, informe a sua localização e o tipo de equipamento que deseja descartar. Em breve, um de nossos voluntários entrará em contato para agendar a coleta.`
-            );
-        }
-        else if (msg.body === 'Descarte Interno') {
-            const chat = await msg.getChat();
-            await delay(3000);
-            await chat.sendStateTyping();
-            await delay(3000);
-            await client.sendMessage(
-                msg.from,
-                `Você selecionou *Descarte Interno*.\n\nCaso os seus equipamentos eletrônicos estejam em sua residência ou empresa e você prefira deixá-los em um ponto de coleta, acesse nosso site para verificar os locais disponíveis ou responda com a sua cidade para obter mais informações.`
-            );
-        }
-        else if (msg.body === 'Ajuda') {
-            const chat = await msg.getChat();
-            await delay(3000);
-            await chat.sendStateTyping();
-            await delay(3000);
-            await client.sendMessage(
-                msg.from,
-                `Você selecionou *Ajuda*.\n\nSe precisar de esclarecimentos adicionais ou tiver dúvidas sobre o processo de descarte, por favor, responda com sua pergunta ou entre em contato com nossa equipe pelo telefone (XX) XXXX-XXXX. Estamos aqui para ajudar!`
-            );
-        }
+    // Opção 1 - Descarte Externo
+    if (msg.body !== null && msg.body === '1' && msg.from.endsWith('@c.us')) {
+        const chat = await msg.getChat();
+        await delay(3000);
+        await chat.sendStateTyping();
+        await delay(3000);
+        await client.sendMessage(
+            msg.from,
+            `Você selecionou *Descarte Externo*.\n\nSe você possui equipamentos eletrônicos para descarte em locais externos, por favor, informe a sua localização e o tipo de equipamento que deseja descartar. Em breve, um de nossos voluntários entrará em contato para agendar a coleta.`
+        );
+    }
+
+    // Opção 2 - Descarte Interno
+    if (msg.body !== null && msg.body === '2' && msg.from.endsWith('@c.us')) {
+        const chat = await msg.getChat();
+        await delay(3000);
+        await chat.sendStateTyping();
+        await delay(3000);
+        await client.sendMessage(
+            msg.from,
+            `Você selecionou *Descarte Interno*.\n\nCaso os seus equipamentos eletrônicos estejam em sua residência ou empresa e você prefira deixá-los em um ponto de coleta, acesse nosso site para verificar os locais disponíveis ou responda com a sua cidade para obter mais informações.`
+        );
+    }
+
+    // Opção 3 - Ajuda
+    if (msg.body !== null && msg.body === '3' && msg.from.endsWith('@c.us')) {
+        const chat = await msg.getChat();
+        await delay(3000);
+        await chat.sendStateTyping();
+        await delay(3000);
+        await client.sendMessage(
+            msg.from,
+            `Você selecionou *Ajuda*.\n\nSe precisar de esclarecimentos adicionais ou tiver dúvidas sobre o processo de descarte, por favor, responda com sua pergunta ou entre em contato com nossa equipe pelo telefone (XX) XXXX-XXXX. Estamos aqui para ajudar!`
+        );
     }
 });
