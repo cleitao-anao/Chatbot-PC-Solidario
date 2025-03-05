@@ -93,17 +93,7 @@ client.on('message', async msg => {
 
         await client.sendMessage(
             msg.from,
-            `Você sabia que muitos dispositivos eletrônicos que descartamos ainda podem ter uma nova vida? Na PCTI PC Solidário , estamos comprometidos em fazer a diferença!
-            \n\n
-            Nosso projeto é simples, mas poderoso: coletamos lixo eletrônico, reciclamos e transformamos em novos computadores. Cada equipamento que recuperamos é uma oportunidade de levar tecnologia a quem mais precisa.
-            \n\n
-            Acreditamos que todos merecem acesso à informação e educação. Por isso, fazemos esses computadores para comunidades carentes, ajudando a abrir portas para um futuro melhor.
-            \n\n
-            Se você tem eletrônicos parados em casa, não jogue fora! Traga para a PCTI PC Solidário e faça parte dessa corrente do bem. Juntos, podemos transformar lixo em oportunidades e construir um mundo mais justo e sustentável.
-            \n\n
-            PCTI PC Solidário - Reciclando com propósito, doando com amor! 
-            \n\n
-            Para saber mais sobre como você pode ajudar, visite nosso site ou entre em contato conosco!`
+            `Você sabia que muitos dispositivos eletrônicos que descartamos ainda podem ter uma nova vida? Na PCTI PC Solidário , estamos comprometidos em fazer a diferença!\nNosso projeto é simples, mas poderoso: coletamos lixo eletrônico, reciclamos e transformamos em novos computadores. Cada equipamento que recuperamos é uma oportunidade de levar tecnologia a quem mais precisa.\nAcreditamos que todos merecem acesso à informação e educação. Por isso, fazemos esses computadores para comunidades carentes, ajudando a abrir portas para um futuro melhor.\nSe você tem eletrônicos parados em casa, não jogue fora! Traga para a PCTI PC Solidário e faça parte dessa corrente do bem. Juntos, podemos transformar lixo em oportunidades e construir um mundo mais justo e sustentável.\nPCTI PC Solidário - Reciclando com propósito, doando com amor!\nPara saber mais sobre como você pode ajudar, visite nosso site ou entre em contato conosco!`
         );
         
         await delay(1000);
