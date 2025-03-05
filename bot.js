@@ -80,19 +80,39 @@ client.on('message', async msg => {
     // Verifica se a mensagem contém cumprimentos ou solicita o menu
     if (msg.body.match(/(menu|Menu|dia|tarde|noite|oi|Oi|Olá|olá|ola|Ola)/i) && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-        await delay(3000);
+        await delay(1000);
         await chat.sendStateTyping();
-        await delay(3000);
+        await delay(1000);
         const contact = await msg.getContact();
         const name = contact.pushname;
         // Mensagem de saudação adaptada para o projeto solidário
         await client.sendMessage(
             msg.from,
-            `Olá, ${name.split(" ")[0]}! Bem-vindo ao Projeto Solidário de Descarte de Eletrônicos.\nPor favor, escolha uma das opções abaixo:\n\n1 - Descarte Externo\n2 - Descarte Interno\n3 - Ajuda`
+            `Olá, ${name.split(" ")[0]}! Bem-vindo ao Projeto Solidário de Descarte de Eletrônicos.PCTI PC Solidário: Transformando Lixo Eletrônico em Esperança!`
         );
-        await delay(3000);
+
+        await client.sendMessage(
+            msg.from,
+            `Você sabia que muitos dispositivos eletrônicos que descartamos ainda podem ter uma nova vida? Na PCTI PC Solidário , estamos comprometidos em fazer a diferença!
+            \n\n
+            Nosso projeto é simples, mas poderoso: coletamos lixo eletrônico, reciclamos e transformamos em novos computadores. Cada equipamento que recuperamos é uma oportunidade de levar tecnologia a quem mais precisa.
+            \n\n
+            Acreditamos que todos merecem acesso à informação e educação. Por isso, fazemos esses computadores para comunidades carentes, ajudando a abrir portas para um futuro melhor.
+            \n\n
+            Se você tem eletrônicos parados em casa, não jogue fora! Traga para a PCTI PC Solidário e faça parte dessa corrente do bem. Juntos, podemos transformar lixo em oportunidades e construir um mundo mais justo e sustentável.
+            \n\n
+            PCTI PC Solidário - Reciclando com propósito, doando com amor! 
+            \n\n
+            Para saber mais sobre como você pode ajudar, visite nosso site ou entre em contato conosco!`
+        );
+        
+        await delay(1000);
         await chat.sendStateTyping();
-        await delay(5000);
+        await delay(1000);
+        await client.sendMessage(
+            msg.from,
+            `Por favor, escolha uma das opções abaixo:\n\n1 - Descarte Externo\n2 - Descarte Interno\n3 - Ajuda`
+        );
     }
 
     // Opção 1 - Descarte Externo
@@ -103,7 +123,7 @@ client.on('message', async msg => {
         await delay(3000);
         await client.sendMessage(
             msg.from,
-            `Você selecionou *Descarte Externo*.\n\nSe você possui equipamentos eletrônicos para descarte em locais externos, por favor, informe a sua localização e o tipo de equipamento que deseja descartar. Em breve, um de nossos voluntários entrará em contato para agendar a coleta.`
+            `Você selecionou *Descarte Externo*.`
         );
     }
 
@@ -115,7 +135,7 @@ client.on('message', async msg => {
         await delay(3000);
         await client.sendMessage(
             msg.from,
-            `Você selecionou *Descarte Interno*.\n\nCaso os seus equipamentos eletrônicos estejam em sua residência ou empresa e você prefira deixá-los em um ponto de coleta, acesse nosso site para verificar os locais disponíveis ou responda com a sua cidade para obter mais informações.`
+            `Você selecionou *Descarte Interno*.`
         );
     }
 
