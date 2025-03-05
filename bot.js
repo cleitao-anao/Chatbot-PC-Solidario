@@ -1,9 +1,8 @@
-const { Client, LocalAuth } = require('whatsapp-web.js');
+const { Client, LocalAuth, Buttons } = require('whatsapp-web.js');
 const qrcode = require('qrcode');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-
 
 let qrCodeData = null; // Armazena o QR Code temporariamente
 
@@ -74,121 +73,66 @@ app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
 
+const delay = ms => new Promise(res => setTimeout(res, ms)); // Função para criar delay entre ações
 
-
-
-const delay = ms => new Promise(res => setTimeout(res, ms)); // Função que usamos para criar o delay entre uma ação e outra
-
-// Funil
-
+// Funil de atendimento para o projeto solidário de descarte de eletrônico com botões
 client.on('message', async msg => {
-
+    // Ao receber uma saudação ou pedido de menu, envia a mensagem com botões
     if (msg.body.match(/(menu|Menu|dia|tarde|noite|oi|Oi|Olá|olá|ola|Ola)/i) && msg.from.endsWith('@c.us')) {
-
         const chat = await msg.getChat();
-
-        await delay(3000); //delay de 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000); //Delay de 3000 milisegundos mais conhecido como 3 segundos
-        const contact = await msg.getContact(); //Pegando o contato
-        const name = contact.pushname; //Pegando o nome do contato
-        await client.sendMessage(msg.from,'Olá! '+ name.split(" ")[0] + 'Sou o assistente virtual da empresa tal. Como posso ajudá-lo hoje? Por favor, digite uma das opções abaixo:\n\n1 - Como funciona\n2 - Valores dos planos\n3 - Benefícios\n4 - Como aderir\n5 - Outras perguntas'); //Primeira mensagem de texto
-        await delay(3000); //delay de 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(5000); //Delay de 5 segundos
-    
-        
+        await delay(3000);
+        await chat.sendStateTyping();
+        await delay(3000);
+        const contact = await msg.getContact();
+        const name = contact.pushname;
+        // Cria os botões interativos
+        const buttons = new Buttons(
+            `Olá, ${name.split(" ")[0]}! Bem-vindo ao Projeto Solidário de Descarte de Eletrônicos. Por favor, escolha uma das opções abaixo:`,
+            [
+                { body: 'Descarte Externo' },
+                { body: 'Descarte Interno' },
+                { body: 'Ajuda' }
+            ],
+            'Menu Principal',
+            'Selecione uma opção'
+        );
+        await client.sendMessage(msg.from, buttons);
+        await delay(3000);
+        await chat.sendStateTyping();
+        await delay(5000);
     }
 
-
-
-
-    if (msg.body !== null && msg.body === '1' && msg.from.endsWith('@c.us')) {
-        const chat = await msg.getChat();
-
-
-        await delay(3000); //delay de 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000);
-        await client.sendMessage(msg.from, 'Nosso serviço oferece consultas médicas 24 horas por dia, 7 dias por semana, diretamente pelo WhatsApp.\n\nNão há carência, o que significa que você pode começar a usar nossos serviços imediatamente após a adesão.\n\nOferecemos atendimento médico ilimitado, receitas\n\nAlém disso, temos uma ampla gama de benefícios, incluindo acesso a cursos gratuitos');
-
-        await delay(3000); //delay de 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000);
-        await client.sendMessage(msg.from, 'COMO FUNCIONA?\nÉ muito simples.\n\n1º Passo\nFaça seu cadastro e escolha o plano que desejar.\n\n2º Passo\nApós efetuar o pagamento do plano escolhido você já terá acesso a nossa área exclusiva para começar seu atendimento na mesma hora.\n\n3º Passo\nSempre que precisar');
-
-        await delay(3000); //delay de 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000);
-        await client.sendMessage(msg.from, 'Link para cadastro: https://site.com');
-
-
+    // Processa a resposta dos botões (baseada no texto do botão)
+    if (msg.body !== null && msg.from.endsWith('@c.us')) {
+        if (msg.body === 'Descarte Externo') {
+            const chat = await msg.getChat();
+            await delay(3000);
+            await chat.sendStateTyping();
+            await delay(3000);
+            await client.sendMessage(
+                msg.from,
+                `Você selecionou *Descarte Externo*.\n\nSe você possui equipamentos eletrônicos para descarte em locais externos, por favor, informe a sua localização e o tipo de equipamento que deseja descartar. Em breve, um de nossos voluntários entrará em contato para agendar a coleta.`
+            );
+        }
+        else if (msg.body === 'Descarte Interno') {
+            const chat = await msg.getChat();
+            await delay(3000);
+            await chat.sendStateTyping();
+            await delay(3000);
+            await client.sendMessage(
+                msg.from,
+                `Você selecionou *Descarte Interno*.\n\nCaso os seus equipamentos eletrônicos estejam em sua residência ou empresa e você prefira deixá-los em um ponto de coleta, acesse nosso site para verificar os locais disponíveis ou responda com a sua cidade para obter mais informações.`
+            );
+        }
+        else if (msg.body === 'Ajuda') {
+            const chat = await msg.getChat();
+            await delay(3000);
+            await chat.sendStateTyping();
+            await delay(3000);
+            await client.sendMessage(
+                msg.from,
+                `Você selecionou *Ajuda*.\n\nSe precisar de esclarecimentos adicionais ou tiver dúvidas sobre o processo de descarte, por favor, responda com sua pergunta ou entre em contato com nossa equipe pelo telefone (XX) XXXX-XXXX. Estamos aqui para ajudar!`
+            );
+        }
     }
-
-    if (msg.body !== null && msg.body === '2' && msg.from.endsWith('@c.us')) {
-        const chat = await msg.getChat();
-
-
-        await delay(3000); //Delay de 3000 milisegundos mais conhecido como 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000);
-        await client.sendMessage(msg.from, '*Plano Individual:* R$22,50 por mês.\n\n*Plano Família:* R$39,90 por mês, inclui você mais 3 dependentes.\n\n*Plano TOP Individual:* R$42,50 por mês, com benefícios adicionais como\n\n*Plano TOP Família:* R$79,90 por mês, inclui você mais 3 dependentes');
-
-        await delay(3000); //delay de 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000);
-        await client.sendMessage(msg.from, 'Link para cadastro: https://site.com');
-    }
-
-    if (msg.body !== null && msg.body === '3' && msg.from.endsWith('@c.us')) {
-        const chat = await msg.getChat();
-
-
-        await delay(3000); //Delay de 3000 milisegundos mais conhecido como 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000);
-        await client.sendMessage(msg.from, 'Sorteio de em prêmios todo ano.\n\nAtendimento médico ilimitado 24h por dia.\n\nReceitas de medicamentos');
-        
-        await delay(3000); //delay de 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000);
-        await client.sendMessage(msg.from, 'Link para cadastro: https://site.com');
-
-    }
-
-    if (msg.body !== null && msg.body === '4' && msg.from.endsWith('@c.us')) {
-        const chat = await msg.getChat();
-
-        await delay(3000); //Delay de 3000 milisegundos mais conhecido como 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000);
-        await client.sendMessage(msg.from, 'Você pode aderir aos nossos planos diretamente pelo nosso site ou pelo WhatsApp.\n\nApós a adesão, você terá acesso imediato');
-
-
-        await delay(3000); //delay de 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000);
-        await client.sendMessage(msg.from, 'Link para cadastro: https://site.com');
-
-
-    }
-
-    if (msg.body !== null && msg.body === '5' && msg.from.endsWith('@c.us')) {
-        const chat = await msg.getChat();
-
-        await delay(3000); //Delay de 3000 milisegundos mais conhecido como 3 segundos
-        await chat.sendStateTyping(); // Simulando Digitação
-        await delay(3000);
-        await client.sendMessage(msg.from, 'Se você tiver outras dúvidas ou precisar de mais informações, por favor, fale aqui nesse whatsapp ou visite nosso site: https://site.com ');
-
-
-    }
-
-
-
-
-
-
-
-
 });
