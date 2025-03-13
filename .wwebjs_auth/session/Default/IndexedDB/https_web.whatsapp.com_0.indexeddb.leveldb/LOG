@@ -140,3 +140,12 @@
 2025/03/13-19:29:38.775 ebf Generated table #41@1: 22372 keys, 1149659 bytes
 2025/03/13-19:29:38.776 ebf Compacted 1@1 + 1@2 files => 1149659 bytes
 2025/03/13-19:29:38.776 ebf compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/03/13-19:30:01.187 fc6 Level-0 table #43: started
+2025/03/13-19:30:01.381 fc6 Level-0 table #43: 1058312 bytes OK
+2025/03/13-19:30:01.387 fc6 Delete type=2 #38
+2025/03/13-19:30:01.387 fc6 Delete type=0 #39
+2025/03/13-19:30:01.387 fc6 Delete type=2 #40
+2025/03/13-19:30:06.568 ebe Compacting 1@1 + 1@2 files
+2025/03/13-19:30:06.739 ebe Generated table #44@1: 39232 keys, 1603501 bytes
+2025/03/13-19:30:06.739 ebe Compacted 1@1 + 1@2 files => 1603501 bytes
+2025/03/13-19:30:06.740 ebe compacted to: files[ 0 0 1 0 0 0 0 ]
