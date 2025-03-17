@@ -149,3 +149,15 @@
 2025/03/13-19:30:06.739 ebe Generated table #44@1: 39232 keys, 1603501 bytes
 2025/03/13-19:30:06.739 ebe Compacted 1@1 + 1@2 files => 1603501 bytes
 2025/03/13-19:30:06.740 ebe compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/03/13-19:34:22.930 1bbf Level-0 table #46: started
+2025/03/13-19:34:22.950 1bbf Level-0 table #46: 349634 bytes OK
+2025/03/13-19:34:22.951 1bbf Delete type=2 #41
+2025/03/13-19:34:22.951 1bbf Delete type=0 #42
+2025/03/13-19:34:22.951 1bbf Delete type=2 #43
+2025/03/13-19:34:22.952 1bbf Manual compaction at level-0 from '\x00\x19\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1a\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/03/13-19:34:27.320 1bbf Compacting 1@1 + 1@2 files
+2025/03/13-19:34:27.422 1bbf Generated table #47@1: 39727 keys, 1652648 bytes
+2025/03/13-19:34:27.422 1bbf Compacted 1@1 + 1@2 files => 1652648 bytes
+2025/03/13-19:34:27.424 1bbf compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/03/13-19:34:27.424 1bbf Delete type=2 #44
+2025/03/13-19:34:27.424 1bbf Delete type=2 #46

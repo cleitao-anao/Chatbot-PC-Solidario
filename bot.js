@@ -78,7 +78,7 @@ const delay = ms => new Promise(res => setTimeout(res, ms)); // Função para cr
 // Funil de atendimento para o projeto solidário de descarte de eletrônico
 client.on('message', async msg => {
     // Verifica se a mensagem contém cumprimentos ou solicita o menu
-    if (msg.body.match(/(menu|Menu|dia|tarde|noite|oi|Oi|Olá|olá|ola|Ola)/i) && msg.from.endsWith('@c.us')) {
+    if (msg.body.match(/(menu|Menu|dia|tarde|noite|oi|Oi|Olá|olá|ola|Ola|bao|bão|Bão|bão|opa|Opa)/i) && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
         await delay(1000);
         await chat.sendStateTyping();
@@ -90,6 +90,10 @@ client.on('message', async msg => {
             msg.from,
             `Olá, ${name.split(" ")[0]}! Bem-vindo ao Projeto Solidário de Descarte de Eletrônicos.PCTI PC Solidário: Transformando Lixo Eletrônico em Esperança!`
         );
+        
+        await delay(1000);
+        await chat.sendStateTyping();
+        await delay(1000);
 
         await client.sendMessage(
             msg.from,
