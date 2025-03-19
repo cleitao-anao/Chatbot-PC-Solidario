@@ -1,2 +1,3 @@
-2025/03/13-19:34:22.901 1664 Creating DB /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/shared_proto_db since it was missing.
-2025/03/13-19:34:22.904 1664 Reusing MANIFEST /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/shared_proto_db/MANIFEST-000001
+2025/03/19-18:06:22.508 a3b Reusing MANIFEST /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/shared_proto_db/MANIFEST-000001
+2025/03/19-18:06:22.508 a3b Recovering log #3
+2025/03/19-18:06:22.509 a3b Reusing old log /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/shared_proto_db/000003.log 

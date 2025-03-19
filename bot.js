@@ -88,7 +88,7 @@ client.on('message', async msg => {
         // Mensagem de saudação adaptada para o projeto solidário
         await client.sendMessage(
             msg.from,
-            `Olá, ${name.split(" ")[0]}! Bem-vindo ao Projeto Solidário de Descarte de Eletrônicos.PCTI PC Solidário: Transformando Lixo Eletrônico em Esperança!`
+            `Olá, ${name.split(" ")[0]}! Bem-vindo ao Projeto Solidário de doação e Descarte de Eletrônicos.PCTI PC Solidário: Transformando Lixo Eletrônico em Esperança!`
         );
         
         await delay(1000);
