@@ -1,3 +1,2 @@
-2025/03/19-18:01:15.126 a05 Reusing MANIFEST /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/Service Worker/Database/MANIFEST-000001
-2025/03/19-18:01:15.127 a05 Recovering log #3
-2025/03/19-18:01:15.129 a05 Reusing old log /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/Service Worker/Database/000003.log 
+2025/03/19-23:12:57.098 2729 Creating DB /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/Service Worker/Database since it was missing.
+2025/03/19-23:12:57.105 2729 Reusing MANIFEST /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/Service Worker/Database/MANIFEST-000001

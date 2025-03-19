@@ -1,10 +1,8 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
-const qrcode = require('qrcode');
+const qrcode = require('qrcode-terminal');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-
-let qrCodeData = null; // Armazena o QR Code temporariamente
 
 const client = new Client({
     authStrategy: new LocalAuth(),
@@ -23,61 +21,21 @@ const client = new Client({
     }
 });
 
-client.on('qr', async (qr) => {
+client.on('qr', qr => {
     console.log("Novo QR Code gerado!");
-    qrCodeData = await qrcode.toDataURL(qr); // Converte para uma imagem base64
+    qrcode.generate(qr, { small: true }); // Exibe o QR Code no terminal
 });
 
 client.on('ready', () => {
     console.log('Tudo certo! WhatsApp conectado.');
-    qrCodeData = null; // Remove o QR Code depois da conexão
 });
 
 client.initialize();
 
-// Servir a página HTML
-app.get('/', (req, res) => {
-    res.send(`
-        <html>
-            <head>
-                <title>QR Code do WhatsApp</title>
-                <script>
-                    function atualizarQRCode() {
-                        fetch('/qrcode')
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.qr) {
-                                    document.getElementById('qrcode').src = data.qr;
-                                }
-                            });
-                    }
-                    setInterval(atualizarQRCode, 5000);
-                    atualizarQRCode();
-                </script>
-            </head>
-            <body>
-                <h1>Escaneie o QR Code para conectar</h1>
-                <img id="qrcode" src="" />
-            </body>
-        </html>
-    `);
-});
-
-// Rota para fornecer o QR Code em tempo real
-app.get('/qrcode', (req, res) => {
-    res.json({ qr: qrCodeData });
-});
-
-// Inicia o servidor
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
-});
-
-const delay = ms => new Promise(res => setTimeout(res, ms)); // Função para criar delay entre ações
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
 // Funil de atendimento para o projeto solidário de descarte de eletrônico
 client.on('message', async msg => {
-    // Verifica se a mensagem contém cumprimentos ou solicita o menu
     if (msg.body.match(/(menu|Menu|dia|tarde|noite|oi|Oi|Olá|olá|ola|Ola|bao|bão|Bão|bão|opa|Opa)/i) && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
         await delay(1000);
@@ -85,21 +43,10 @@ client.on('message', async msg => {
         await delay(1000);
         const contact = await msg.getContact();
         const name = contact.pushname;
-        // Mensagem de saudação adaptada para o projeto solidário
         await client.sendMessage(
             msg.from,
             `Olá, ${name.split(" ")[0]}! Bem-vindo ao Projeto Solidário de doação e Descarte de Eletrônicos.PCTI PC Solidário: Transformando Lixo Eletrônico em Esperança!`
         );
-        
-        await delay(1000);
-        await chat.sendStateTyping();
-        await delay(1000);
-
-        await client.sendMessage(
-            msg.from,
-            `colocar algo`
-        );
-        
         
         await delay(1000);
         await chat.sendStateTyping();
@@ -110,32 +57,23 @@ client.on('message', async msg => {
         );
     }
 
-    // Opção 1 - Descarte Externo
-    if (msg.body !== null && msg.body === '1' && msg.from.endsWith('@c.us')) {
+    if (msg.body === '1' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
         await delay(1000);
         await chat.sendStateTyping();
         await delay(1000);
-        await client.sendMessage(
-            msg.from,
-            `Você selecionou *Descarte Externo*.`
-        );
+        await client.sendMessage(msg.from, `Você selecionou *Descarte Externo*.`);
     }
 
-    // Opção 2 - Descarte Interno
-    if (msg.body !== null && msg.body === '2' && msg.from.endsWith('@c.us')) {
+    if (msg.body === '2' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
         await delay(1000);
         await chat.sendStateTyping();
         await delay(1000);
-        await client.sendMessage(
-            msg.from,
-            `Você selecionou *Descarte Interno*.`
-        );
+        await client.sendMessage(msg.from, `Você selecionou *Descarte Interno*.`);
     }
 
-    // Opção 3 - Ajuda
-    if (msg.body !== null && msg.body === '3' && msg.from.endsWith('@c.us')) {
+    if (msg.body === '3' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
         await delay(1000);
         await chat.sendStateTyping();
