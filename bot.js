@@ -109,7 +109,7 @@ client.on('message', async msg => {
     
         await client.sendMessage(msg.from, 
             "🔹 *Agendamento para coleta:*\n" +
-            "Caso não seja possível entregar os equipamentos presencialmente, oferecemos a opção de coleta em domicílio. Para isso, solicitamos o preenchimento de um formulário com suas informações."
+            "Caso não seja possível entregar os equipamentos presencialmente, oferecemos a opção de coleta em domicílio, mas com mínimo de 3 eletronicos ou mais. Para isso, solicitamos o preenchimento de um formulário com suas informações."
         );
         await delay(2000);
         
@@ -118,7 +118,7 @@ client.on('message', async msg => {
     
         await client.sendMessage(msg.from, 
             "Para agendar a coleta, por favor, preencha o formulário no link abaixo:\n\n" +
-            "📌 [Inserir link do formulário aqui]\n\n" +
+            "📌 https://forms.gle/hbL3B7Do1CRmCVGu5\n\n" +
             "Após o envio, nossa equipe entrará em contato para confirmar os detalhes da retirada."
         );
     
