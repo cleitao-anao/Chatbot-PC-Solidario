@@ -53,7 +53,7 @@ client.on('message', async msg => {
         await delay(1000);
         await client.sendMessage(
             msg.from,
-            `Por favor, escolha uma das opções abaixo:\n\n1 - Sobre o projeto\n2 - como doar\n3 - Ajuda`
+            `Por favor, escolha uma das opções abaixo:\n\n1 - Sobre o projeto\n2 - Como doar\n3 - Ajuda`
         );
     }
 
@@ -75,9 +75,10 @@ client.on('message', async msg => {
         await delay(1000);
         await chat.sendStateTyping();
         await delay(1000);
-        await client.sendMessage(msg.from, `Acreditamos que todos merecem acesso à informação e à educação. Por isso, fazemos esses computadores para comunidades carentes, ajudando a abrir portas para um futuro melhor.
-
-        Se você tem eletrônicos parados em casa, não jogue fora! Traga para o PC Solidário e faça parte dessa corrente do bem. Juntos, podemos transformar lixo em oportunidades e construir um mundo mais justo e sustentável.`);
+        await client.sendMessage(msg.from, `Acreditamos que todos merecem acesso à informação e à educação. Por isso, fazemos esses computadores para comunidades carentes, ajudando a abrir portas para um futuro melhor.`);
+        await delay(1000);
+        await chat.sendStateTyping();
+        await client.sendMessage(msg.from, `Se você tem eletrônicos parados em casa, não jogue fora! Traga para o PC Solidário e faça parte dessa corrente do bem. Juntos, podemos transformar lixo em oportunidades e construir um mundo mais justo e sustentável.`);
     }
 
     if (msg.body === '2' && msg.from.endsWith('@c.us')) {
