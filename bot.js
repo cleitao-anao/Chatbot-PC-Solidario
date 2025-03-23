@@ -38,111 +38,104 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 client.on('message', async msg => {
     if (msg.body.match(/(menu|Menu|dia|tarde|noite|oi|Oi|Olá|olá|ola|Ola|bao|bão|Bão|bão|opa|Opa)/i) && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-        await delay(1000);
-        await chat.sendStateTyping();
-        await delay(1000);
-        const contact = await msg.getContact();
-        const name = contact.pushname;
-        await client.sendMessage(
-            msg.from,
-            `Olá, ${name.split(" ")[0]}! Bem-vindo, eu sou bot do Projeto Solidário de doação e Descarte de Eletrônicos. PC Solidário: Transformando Lixo Eletrônico em Esperança!`
-        );
         
         await delay(1000);
         await chat.sendStateTyping();
         await delay(1000);
+    
+        const contact = await msg.getContact();
+        const name = contact.pushname.split(" ")[0];
+    
         await client.sendMessage(
             msg.from,
-            `Por favor, escolha uma das opções abaixo:\n\n1 - Sobre o projeto\n2 - Como doar\n3 - Ajuda`
+            `🌟 Olá, ${name}! Seja bem-vindo(a)! 🌟\n\n` +
+            `Eu sou o bot do *PC Solidário*, um projeto que transforma lixo eletrônico em esperança! ♻️💻\n\n` +
+            `Quer saber mais? Escolha uma opção abaixo digitando o número correspondente:\n\n` +
+            `1️⃣ *Sobre o Projeto*\n` +
+            `2️⃣ *Como Doar*\n` +
+            `3️⃣ *Ajuda e Suporte*\n\n` +
+            `📩 Basta responder com o número da opção desejada! 😉`
         );
     }
+    
 
     if (msg.body === '1' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-
-        await client.sendMessage(msg.from, 'Você selecionou *Sobre o projeto*.');
         
-        await delay(1000);
-        await chat.sendStateTyping();
-        await delay(1000);
-        await client.sendMessage(msg.from, `Você sabia que muitos dispositivos eletrônicos que descartamos ainda podem ter uma nova vida?`);
-
-        await delay(1000);
-        await chat.sendStateTyping();
-        await delay(1000);
-        await client.sendMessage(msg.from, `O objetivo do nosso projeto: coletamos lixo eletrônico, reciclamos e transformamos em novos computadores. Cada equipamento que recuperamos é uma oportunidade de levar tecnologia a quem mais precisa.`);
-
-        await delay(1000);
-        await chat.sendStateTyping();
-        await delay(1000);
-        await client.sendMessage(msg.from, `Acreditamos que todos merecem acesso à informação e à educação. Por isso, fazemos esses computadores para comunidades carentes, ajudando a abrir portas para um futuro melhor.`);
-        await delay(1000);
-        await chat.sendStateTyping();
-        await client.sendMessage(msg.from, `Se você tem eletrônicos parados em casa, não jogue fora! Traga para o PC Solidário e faça parte dessa corrente do bem. Juntos, podemos transformar lixo em oportunidades e construir um mundo mais justo e sustentável.`);
+        await client.sendMessage(msg.from, 
+            `🌱 *Sobre o Projeto* 🌱\n\n` +
+            `Muitos eletrônicos descartados ainda podem ter uma nova vida! ♻️\n\n` +
+            `Nosso projeto transforma lixo eletrônico em computadores para comunidades carentes, dando acesso à tecnologia e educação. 📚💻\n\n` +
+            `Tem aparelhos parados? Doe para o *PC Solidário* e ajude a construir um futuro melhor! 🚀✨`
+        );
     }
-
+    
     if (msg.body === '2' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-        await client.sendMessage(msg.from, `Você selecionou *Como doar*.`);
+    
+        await client.sendMessage(msg.from, `✨ *Como Doar* ✨`);
         await delay(1000);
-        await chat.sendStateTyping();
-        await delay(1000);
-        await client.sendMessage(msg.from, 
-            "Agradecemos seu interesse em contribuir com nosso projeto! Atualmente, oferecemos duas formas para realizar a doação de equipamentos eletrônicos usados."
-        );
-        await delay(2000);
-        
         await chat.sendStateTyping();
         await delay(1000);
     
         await client.sendMessage(msg.from, 
-            "🔹 *Entrega no local:*\n" +
-            "Você pode deixar sua doação em nossa unidade do *Senac*, localizada no seguinte endereço:\n\n" +
-            "📍 *R. Aristides Lobo, 1058 - Campina, Belém - PA, 66017-010*.\n\n" +
-            "📅 *Horário de funcionamento:*\n" +
-            "🕘 Segunda a sexta-feira, das *8h às 20h*."
-        );
-        await delay(2000);
-        
-        await chat.sendStateTyping();
-        await delay(1000);
-    
-        await client.sendMessage(msg.from, 
-            "🔹 *Agendamento para coleta:*\n" +
-            "Caso não seja possível entregar os equipamentos presencialmente, oferecemos a opção de coleta em domicílio, mas com mínimo de 3 eletronicos ou mais. Para isso, solicitamos o preenchimento de um formulário com suas informações."
-        );
-        await delay(2000);
-        
-        await chat.sendStateTyping();
-        await delay(1000);
-    
-        await client.sendMessage(msg.from, 
-            "Para agendar a coleta, por favor, preencha o formulário no link abaixo:\n\n" +
-            "📌 https://forms.gle/hbL3B7Do1CRmCVGu5\n\n" +
-            "Após o envio, nossa equipe entrará em contato para confirmar os detalhes da retirada."
+            "Obrigado por querer fazer parte do *PC Solidário*! 💙\n\n" +
+            "Temos duas formas simples para você doar seus eletrônicos usados e ajudar a transformar vidas. Confira abaixo! ⬇️"
         );
     
         await delay(2000);
-        
         await chat.sendStateTyping();
         await delay(1000);
     
         await client.sendMessage(msg.from, 
-            "Se tiver alguma dúvida, estamos à disposição para ajudar.\n\n" +
-            "Agradecemos imensamente sua colaboração e apoio ao projeto! 🤝"
+            "📍 *Entrega no Local*\n" +
+            "Prefere levar sua doação até a gente? Você pode entregar diretamente na nossa unidade do *Senac*.\n\n" +
+            "📌 *Endereço:* R. Aristides Lobo, 1058 - Campina, Belém - PA, 66017-010\n" +
+            "🕘 *Horário:* Segunda a sexta-feira, das 8h às 20h.\n\n" +
+            "Traga seu eletrônico e ajude a construir um futuro melhor! 🚀"
+        );
+    
+        await delay(2000);
+        await chat.sendStateTyping();
+        await delay(1000);
+    
+        await client.sendMessage(msg.from, 
+            "🚚 *Agendamento para Coleta*\n" +
+            "Não pode ir até lá? Podemos buscar sua doação! Para isso, basta ter *3 ou mais eletrônicos* para doação.\n\n" +
+            "📋 Para agendar, preencha o formulário no link abaixo:\n" +
+            "🔗 [*Solicitar Coleta*](https://forms.gle/hbL3B7Do1CRmCVGu5)\n\n" +
+            "Após o envio, entraremos em contato para combinar os detalhes da retirada. 😉"
+        );
+    
+        await delay(2000);
+        await chat.sendStateTyping();
+        await delay(1000);
+    
+        await client.sendMessage(msg.from, 
+            "Qualquer dúvida, estamos à disposição! 💬\n\n" +
+            "A sua doação faz a diferença. Obrigado por apoiar essa causa incrível! 🙌💙"
         );
     }
+    
+
 
     if (msg.body === '3' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
+    
         await delay(1000);
         await chat.sendStateTyping();
         await delay(1000);
+    
         await client.sendMessage(
             msg.from,
-            `Você selecionou *Ajuda*.\n\nSe precisar de esclarecimentos adicionais ou tiver dúvidas sobre o processo de descarte, por favor, responda com sua pergunta ou entre em contato com nossa equipe pelo telefone (XX) XXXX-XXXX. Estamos aqui para ajudar!`
+            `🆘 *Ajuda e Suporte* 🆘\n\n` +
+            `Precisa de mais informações sobre doações ou descarte responsável? Estamos aqui para ajudar! 💙\n\n` +
+            `❓ Tem alguma dúvida? Basta enviar sua pergunta aqui mesmo e nossa equipe responderá o mais rápido possível.\n\n` +
+            `📞 Se preferir, fale conosco diretamente pelo telefone: *(XX) XXXX-XXXX*.\n\n` +
+            `Conte com a gente! 🤝`
         );
     }
+    
 
 
 });
