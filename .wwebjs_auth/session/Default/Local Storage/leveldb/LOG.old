@@ -1,3 +1,6 @@
-2025/03/30-16:52:57.428 764 Reusing MANIFEST /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/Local Storage/leveldb/MANIFEST-000001
-2025/03/30-16:52:57.439 764 Recovering log #3
-2025/03/30-16:52:57.439 764 Reusing old log /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/Local Storage/leveldb/000003.log 
+2025/04/07-18:39:46.806 8dd Reusing MANIFEST /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/Local Storage/leveldb/MANIFEST-000001
+2025/04/07-18:39:46.806 8dd Recovering log #3
+2025/04/07-18:39:46.812 8dd Reusing old log /workspaces/chatbot_pc_solidario.github.io/.wwebjs_auth/session/Default/Local Storage/leveldb/000003.log 
+2025/04/07-18:41:51.960 adc Level-0 table #5: started
+2025/04/07-18:41:51.962 adc Level-0 table #5: 18084 bytes OK
+2025/04/07-18:41:51.964 adc Delete type=0 #3
