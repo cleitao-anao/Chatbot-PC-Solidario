@@ -131,7 +131,7 @@ client.on('message', async msg => {
             `🆘 *Ajuda e Suporte* 🆘\n\n` +
             `Precisa de mais informações sobre doações ou descarte responsável? Estamos aqui para ajudar! 💙\n\n` +
             `❓ Tem alguma dúvida? Basta enviar sua pergunta aqui mesmo e nossa equipe responderá o mais rápido possível.\n\n` +
-            `📞 Se preferir, fale conosco diretamente pelo telefone: *(XX) XXXX-XXXX*.\n\n` +
+            `📞 Se preferir, fale conosco diretamente pelo telefone: 91985027681 .\n\n` +
             `Conte com a gente! 🤝`
         );
     }
