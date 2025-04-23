@@ -31,5 +31,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - **Railway** – Hospedagem do chatbot.
 
 ## Como Usar
-
+Instale as depedencias: npm install
 Para iniciar é digitar o:  node bot.js 
+Se der erro apague a pasta wwebjs_auth, e tente rodar 
