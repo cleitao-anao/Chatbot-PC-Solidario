@@ -1,8 +1,16 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
+const QRCode = require('qrcode');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+
+const delay = ms => new Promise(res => setTimeout(res, ms)); // 👈 ESSA LINHA
+
+let latestQR = null;
+
+// ... o restante do seu código
+
 
 const client = new Client({
     authStrategy: new LocalAuth(),
@@ -21,18 +29,51 @@ const client = new Client({
     }
 });
 
-client.on('qr', qr => {
-    console.log("Novo QR Code gerado!");
-    qrcode.generate(qr, { small: true }); // Exibe o QR Code no terminal
+client.on('qr', (qr) => {
+    latestQR = qr;
+
+    console.log("\n📱 Novo QR Code gerado! Escaneie com o WhatsApp:");
+    qrcode.generate(qr, { small: true });
+
+    console.log("\n🔗 Caso não consiga ver o QR, copie este código para gerar localmente:");
+    console.log(qr); // Esse é o conteúdo real do QR que pode ser colado em outro lugar
 });
 
 client.on('ready', () => {
-    console.log('Tudo certo! WhatsApp conectado.');
+    console.log('✅ Tudo certo! WhatsApp conectado.');
 });
 
 client.initialize();
 
-const delay = ms => new Promise(res => setTimeout(res, ms));
+app.get('/', (req, res) => {
+    res.send('Servidor do bot WhatsApp está rodando!');
+});
+
+app.get('/qrcode', async (req, res) => {
+    if (!latestQR) {
+        return res.send("QR Code ainda não gerado. Aguarde...");
+    }
+
+    try {
+        const qrImage = await QRCode.toDataURL(latestQR);
+        res.send(`
+            <html>
+                <body style="text-align: center;">
+                    <h2>Escaneie o QR Code para conectar ao WhatsApp</h2>
+                    <img src="${qrImage}" width="300" />
+                    <p>Caso expire, reinicie o servidor para gerar um novo.</p>
+                </body>
+            </html>
+        `);
+    } catch (err) {
+        res.status(500).send("Erro ao gerar imagem do QR Code");
+    }
+});
+
+app.listen(port, () => {
+    console.log(`🚀 Servidor rodando na porta ${port}`);
+});
+
 
 // Funil de atendimento para o projeto solidário de descarte de eletrônico
 client.on('message', async msg => {
